@@ -5,8 +5,11 @@ import smtplib
 import telebot
 from telebot import types
 
-from settings import BOT_TOKEN, BASE_URL, BIP_W, m2_10_Bip, m2_25_Bip, m2_50_Bip, flag_oplat, my_email, my_epass
+global flag_oplat
 
+m2_10_Bip = '2700'
+m2_25_Bip = '6300'
+m2_50_Bip = '12000'
 
 m2_10 = '11,10 м2 ['+ m2_10_Bip +' Bip]'
 m2_25 = '26,64 м2 ['+ m2_25_Bip +' Bip]'
@@ -18,7 +21,7 @@ oplat = 'Я оплатил'
 
 _start = '/start' 
 
-bot = telebot.TeleBot(BOT_TOKEN);
+bot = telebot.TeleBot(ENV['BOT_TOKEN']);
 #print(bot)
 
 # обработка сообщений от пользователя 
@@ -65,8 +68,8 @@ def get_text_messages(message):
 
 		smtpObj = smtplib.SMTP('smtp.mail.ru', 587)
 		smtpObj.starttls()
-		smtpObj.login(my_email, my_epass)
-		smtpObj.sendmail(my_email, my_email, message.text)
+		smtpObj.login(ENV['my_email'], ENV['my_epass'])
+		smtpObj.sendmail(ENV['my_email'], ENV['my_email'], message.text)
 		smtpObj.quit
 
 		#print('Message from user ' + str(flag_oplat))
@@ -83,7 +86,7 @@ def callback_worker(call):
 	if call.data == "m2_10": 
 
 		# Формируем ответ на выбор пользователя
-		msg = 'Для покупки ' + m2_10 + ' отправьте сумму ' + m2_10_Bip + ' Bip на кошелек: ' + BIP_W
+		msg = 'Для покупки ' + m2_10 + ' отправьте сумму ' + m2_10_Bip + ' Bip на кошелек: ' + ENV['BIP_W']
 
 		# Отправляем текст в Телеграм
 		bot.send_message(call.message.chat.id, msg)
@@ -91,7 +94,7 @@ def callback_worker(call):
 	elif call.data == "m2_25": 
 
 		# Формируем ответ на выбор пользователя
-		msg = 'Для покупки ' + m2_25 + ' отправьте сумму ' + m2_25_Bip + ' Bip на кошелек: ' + BIP_W
+		msg = 'Для покупки ' + m2_25 + ' отправьте сумму ' + m2_25_Bip + ' Bip на кошелек: ' + ENV['BIP_W']
 
 		# Отправляем текст в Телеграм
 		bot.send_message(call.message.chat.id, msg)
@@ -99,7 +102,7 @@ def callback_worker(call):
 	elif call.data == "m2_50": 
 
 		# Формируем ответ на выбор пользователя
-		msg = 'Для покупки ' + m2_50 + ' отправьте сумму ' + m2_50_Bip + ' Bip на кошелек: ' + BIP_W
+		msg = 'Для покупки ' + m2_50 + ' отправьте сумму ' + m2_50_Bip + ' Bip на кошелек: ' + ENV['BIP_W']
 
 		# Отправляем текст в Телеграм
 		bot.send_message(call.message.chat.id, msg)
