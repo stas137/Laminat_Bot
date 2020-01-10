@@ -8,6 +8,7 @@ from telebot import types
 #from settings import BOT_TOKEN, BIP_W, my_email, my_epass
 
 global flag_oplat
+flag_oplat = False
 
 m2_10_Bip = '2700'
 m2_25_Bip = '6300'
