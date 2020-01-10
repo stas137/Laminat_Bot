@@ -1,9 +1,10 @@
-import sys
 import requests
 import smtplib
 
 import telebot
 from telebot import types
+
+#from settings import BOT_TOKEN, BIP_W, my_email, my_epass
 
 global flag_oplat
 
@@ -21,7 +22,7 @@ oplat = 'Я оплатил'
 
 _start = '/start' 
 
-bot = telebot.TeleBot(ENV['BOT_TOKEN']);
+bot = telebot.TeleBot(os.environ['BOT_TOKEN']);
 #print(bot)
 
 # обработка сообщений от пользователя 
@@ -68,8 +69,8 @@ def get_text_messages(message):
 
 		smtpObj = smtplib.SMTP('smtp.mail.ru', 587)
 		smtpObj.starttls()
-		smtpObj.login(ENV['my_email'], ENV['my_epass'])
-		smtpObj.sendmail(ENV['my_email'], ENV['my_email'], message.text)
+		smtpObj.login(os.environ['my_email'], os.environ['my_epass'])
+		smtpObj.sendmail(os.environ['my_email'], os.environ['my_email'], message.text)
 		smtpObj.quit
 
 		#print('Message from user ' + str(flag_oplat))
@@ -86,7 +87,7 @@ def callback_worker(call):
 	if call.data == "m2_10": 
 
 		# Формируем ответ на выбор пользователя
-		msg = 'Для покупки ' + m2_10 + ' отправьте сумму ' + m2_10_Bip + ' Bip на кошелек: ' + ENV['BIP_W']
+		msg = 'Для покупки ' + m2_10 + ' отправьте сумму ' + m2_10_Bip + ' Bip на кошелек: ' + os.environ['BIP_W']
 
 		# Отправляем текст в Телеграм
 		bot.send_message(call.message.chat.id, msg)
@@ -94,7 +95,7 @@ def callback_worker(call):
 	elif call.data == "m2_25": 
 
 		# Формируем ответ на выбор пользователя
-		msg = 'Для покупки ' + m2_25 + ' отправьте сумму ' + m2_25_Bip + ' Bip на кошелек: ' + ENV['BIP_W']
+		msg = 'Для покупки ' + m2_25 + ' отправьте сумму ' + m2_25_Bip + ' Bip на кошелек: ' + os.environ['BIP_W']
 
 		# Отправляем текст в Телеграм
 		bot.send_message(call.message.chat.id, msg)
@@ -102,7 +103,7 @@ def callback_worker(call):
 	elif call.data == "m2_50": 
 
 		# Формируем ответ на выбор пользователя
-		msg = 'Для покупки ' + m2_50 + ' отправьте сумму ' + m2_50_Bip + ' Bip на кошелек: ' + ENV['BIP_W']
+		msg = 'Для покупки ' + m2_50 + ' отправьте сумму ' + m2_50_Bip + ' Bip на кошелек: ' + os.environ['BIP_W']
 
 		# Отправляем текст в Телеграм
 		bot.send_message(call.message.chat.id, msg)
