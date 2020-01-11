@@ -18,14 +18,14 @@ bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
 
 server = Flask(__name__)
 
-
+"""
 @bot.message_handler(commands=['start'])
 def handle_text(message):
     user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
     user_markup.row('/start','/info')
     start_text = str('Привет, ' + message.from_user.first_name + '!\nЯ бот на Heroku.'+message.text)
     bot.send_message(chat_id=message.chat.id, text=start_text, parse_mode='Markdown')
-
+"""
 
 # обработка сообщений от пользователя 
 @bot.message_handler(content_types=['text'])
