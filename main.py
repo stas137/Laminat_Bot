@@ -1,7 +1,6 @@
 import telebot
 import os
-from flask import Flask
-import requests
+from flask import Flask, request
 
 
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
@@ -19,7 +18,7 @@ def handle_text(message):
 
 @server.route('/' + os.environ['BOT_TOKEN'], methods=['POST'])
 def getMessage():
-    bot.process_new_updates([telebot.types.Update.de_json(requests.stream.read().decode("utf-8"))])
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "!", 200
 
 @server.route("/")
