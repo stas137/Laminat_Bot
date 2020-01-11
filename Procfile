@@ -1,1 +1,2 @@
-web: python main.py webpack-dev-server 0.0.0.0:5000
+web: python main.py 
+run_server 0.0.0.0:5000
