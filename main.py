@@ -14,6 +14,8 @@ m2_25 = '26,64 м2 ['+ m2_25_Bip +' Bip]'
 m2_50 = '51,06 м2 ['+ m2_50_Bip +' Bip]'
 oplat = 'Я оплатил'
 
+_start ='/start'
+
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
 
 server = Flask(__name__)
@@ -79,6 +81,47 @@ def get_text_messages(message):
 		flag_oplat = False
 		#bot.send_message(message.from_user.id, "Для вывода помощи напишите /help")
 
+
+# Обработчик нажатий на кнопки
+@bot.callback_query_handler(func=lambda call: True)
+def callback_worker(call):
+
+	# Если нажали на одну из 12 кнопок — выводим гороскоп
+	if call.data == "m2_10": 
+
+		# Формируем ответ на выбор пользователя
+		msg = 'Для покупки ' + m2_10 + ' отправьте сумму ' + m2_10_Bip + ' Bip на кошелек: ' + os.environ['BIP_W']
+
+		# Отправляем текст в Телеграм
+		bot.send_message(call.message.chat.id, msg)
+
+	elif call.data == "m2_25": 
+
+		# Формируем ответ на выбор пользователя
+		msg = 'Для покупки ' + m2_25 + ' отправьте сумму ' + m2_25_Bip + ' Bip на кошелек: ' + os.environ['BIP_W']
+
+		# Отправляем текст в Телеграм
+		bot.send_message(call.message.chat.id, msg)
+
+	elif call.data == "m2_50": 
+
+		# Формируем ответ на выбор пользователя
+		msg = 'Для покупки ' + m2_50 + ' отправьте сумму ' + m2_50_Bip + ' Bip на кошелек: ' + os.environ['BIP_W']
+
+		# Отправляем текст в Телеграм
+		bot.send_message(call.message.chat.id, msg)
+
+	elif call.data == "oplat": 
+
+		global flag_oplat
+
+		flag_oplat = True
+		#print('Cash ' + str(flag_oplat))
+        # Формируем ответ на выбор пользователя
+		msg = 'Введите ФИО, номер телефона, адрес куда отправить ламинат и номер кошелька с которого была произведена оплата (одной строкой)'
+
+		# Отправляем текст в Телеграм
+		bot.send_message(call.message.chat.id, msg)
 
 @server.route('/' + os.environ['BOT_TOKEN'], methods=['POST'])
 def getMessage():
