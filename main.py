@@ -17,7 +17,7 @@ def handle_text(message):
     bot.send_message(chat_id=message.chat.id, text=start_text, parse_mode='Markdown')
 
 
-@server.route('/' + bot, methods=['POST'])
+@server.route('/' + os.environ['BOT_TOKEN'], methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "!", 200
@@ -25,7 +25,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://cryptic-thicket-65425.herokuapp.com/' + bot)
+    bot.set_webhook(url='https://cryptic-thicket-65425.herokuapp.com/' + os.environ['BOT_TOKEN'])
     return "!", 200
 
 
