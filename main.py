@@ -75,7 +75,7 @@ def get_text_messages(message):
 		smtpObj = smtplib.SMTP('smtp.mail.ru', 587)
 		smtpObj.starttls()
 		smtpObj.login(os.environ['my_email'], os.environ['my_epass'])
-		umessage = messege.text.decode('utf-8')
+		umessage = message.text.decode('utf-8')
 		smtpObj.sendmail(os.environ['my_email'], os.environ['my_email'], umessage)
 		smtpObj.quit
 
