@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*- 
+
 import os
 import telebot
 from telebot import types
@@ -35,7 +37,7 @@ def get_text_messages(message):
 	
 	global flag_oplat
 
-	if message.text == os.environ['BOT_START']:
+	if message.text.lower() == os.environ['BOT_START']:
 
 		bot.send_message(message.from_user.id, "Здесь вы можете обменять BIP на ламинат Кроношпан Дуб Гренландский 8мм 32класс. Работает только в России!")
 
