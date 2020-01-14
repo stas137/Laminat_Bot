@@ -5,7 +5,6 @@ from telebot import types
 import smtplib
 from flask import Flask, request
 
-global flag_oplat
 flag_oplat = False
 
 m2_10_Bip = '2700'
@@ -16,8 +15,6 @@ m2_10 = '11,10 м2 ['+ m2_10_Bip +' Bip]'
 m2_25 = '26,64 м2 ['+ m2_25_Bip +' Bip]'
 m2_50 = '51,06 м2 ['+ m2_50_Bip +' Bip]'
 oplat = 'Я оплатил'
-
-_start ='/start'
 
 bot = telebot.TeleBot(os.environ['BOT_TOKEN'])
 
@@ -38,7 +35,7 @@ def get_text_messages(message):
 	
 	global flag_oplat
 
-	if message.text == _start:
+	if message.text == os.environ['BOT_START']:
 
 		bot.send_message(message.from_user.id, "Здесь вы можете обменять BIP на ламинат Кроношпан Дуб Гренландский 8мм 32класс. Работает только в России!")
 
@@ -72,7 +69,6 @@ def get_text_messages(message):
 		bot.send_message(message.from_user.id, "Для вывода меню напишите /start")
 
 	elif flag_oplat == True:
-
 
 		smtpObj = smtplib.SMTP('smtp.mail.ru', 587)
 		smtpObj.starttls()
@@ -126,10 +122,12 @@ def callback_worker(call):
 		# Отправляем текст в Телеграм
 		bot.send_message(call.message.chat.id, msg)
 
+
 @server.route('/' + os.environ['BOT_TOKEN'], methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "!", 200
+
 
 @server.route("/")
 def webhook():
